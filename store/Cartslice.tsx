@@ -10,8 +10,11 @@ interface CartState {
 // وظيفة لتحميل البيانات من localStorage
 const loadFromLocalStorage = (): CartItem[] => {
   
-    const cartData = localStorage.getItem("cart");
-    return cartData ? JSON.parse(cartData) : [];
+    if (typeof window !== "undefined") {
+      const cartData = localStorage.getItem("cart");
+      return cartData ? JSON.parse(cartData) : [];
+    }
+    return [];
   
   
 };

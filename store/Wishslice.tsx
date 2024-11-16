@@ -7,8 +7,11 @@ interface WishState {
 }
 
 const loadFromLocalStorage = (): CartItem[] => {
-  const wishData = localStorage.getItem("wish");
-  return wishData ? JSON.parse(wishData) : [];
+  if (typeof window !== "undefined") {
+    const wishData = localStorage.getItem("wish");
+    return wishData ? JSON.parse(wishData) : [];
+  }
+  return [];
 };
 const initialState: WishState = {
   items: loadFromLocalStorage(),
