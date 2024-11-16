@@ -1,4 +1,4 @@
-"use client";
+
 import { Wishlist,NavBar } from "@/components"; 
 
 export default function CartPage() {
