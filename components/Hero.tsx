@@ -5,7 +5,7 @@ import Link from "next/link";
 const Hero = () => {
   return (
     <>
-      <div className="flex flex-col md:h-screen  overflow-hidden md:flex-row mt-28 md:mt-0  items-center ">
+      <div className="flex flex-col md:h-screen  overflow-hidden md:flex-row mt-32 md:mt-0  items-center ">
         <div className="w-full md:w-1/2 pl-2 md:pl-10 flex flex-col gap-2 z-10   md:pt-12">
           <h2 className="font-extrabold text-7xl md:text-[110px] leading-none ">
             LET'S <br /> EXPLORE <br />
