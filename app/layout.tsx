@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <RootProvider>
+    
       
       <>
         <head>
@@ -20,12 +20,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <link rel="icon" href="data/png-icon.png" />
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         </head>
+        <RootProvider>
         <html lang="en" className='scroll-smooth'>
           <body className={"relative"}>
             {children}
           </body>
         </html>
+        </RootProvider>
       </>
-    </RootProvider>
+    
   );
 }

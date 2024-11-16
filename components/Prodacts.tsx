@@ -1,11 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { tshirts } from "@/constants";
 import Image from "next/image";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
-import { addToCart } from "@/store/Cartslice";
+import { addToCart, setInitialCart } from "@/store/Cartslice";
 import { addToWish } from "@/store/Wishslice";
 import { CartItem } from "@/constants";
 
@@ -19,7 +19,7 @@ const Products = () => {
   const [visibleCount, setVisibleCount] = useState(4); // Initial number of items to show
   const [visibleCount1, setVisibleCount1] = useState(4); // Initial number of items to show
   const [visibleCount2, setVisibleCount2] = useState(4); // Initial number of items to show
-
+  const [Loading, setLoading] = useState(true);
   const handleOpenDialog = (product: CartItem) => {
     setSelectedProduct(product);
     setIsOpen(true);
@@ -32,7 +32,20 @@ const Products = () => {
   const handleAddWish = (item: CartItem) => {
     dispatch(addToWish(item));
   };
-
+  const getProdacts = async () => {
+    setLoading(true);
+    try {
+      await tshirts;
+      setInitialCart(cart);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    getProdacts();
+  }, []);
   return (
     <div className="w-full flex flex-col items-center gap-3 py-20" id="shop">
       <div
@@ -44,74 +57,77 @@ const Products = () => {
         </h1>
       </div>
       <div className="w-full flex flex-wrap md:gap-12 md:justify-center justify-around">
-        {tshirts[0].slice(0, visibleCount).map((tshirt) => {
-          const isAdded = cart.some((i) => i.id === tshirt.id && i.addedToCart);
-          const wished = wish.some((i) => i.id === tshirt.id && i.wished);
+        {!Loading &&
+          tshirts[0].slice(0, visibleCount).map((tshirt) => {
+            const isAdded = cart.some(
+              (i) => i.id === tshirt.id && i.addedToCart
+            );
+            const wished = wish.some((i) => i.id === tshirt.id && i.wished);
 
-          return (
-            <div
-              key={tshirt.id}
-              onClick={() => handleOpenDialog(tshirt)}
-              className="relative group cursor-pointer w-2/5 my-6 md:my-0 md:w-[300px] h-auto rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-3xl"
-            >
-              <div className="relative   overflow-hidden rounded-t-2xl bg-opacity-90">
-                <Image
-                  src={tshirt.src}
-                  alt={tshirt.catigory}
-                  width={300}
-                  height={160}
-                  className="object-contain  w-full transition-transform duration-500 ease-in-out group-hover:scale-110"
-                />
+            return (
+              <div
+                key={tshirt.id}
+                onClick={() => handleOpenDialog(tshirt)}
+                className="relative group cursor-pointer w-2/5 my-6 md:my-0 md:w-[300px] h-auto rounded-2xl overflow-hidden shadow-2xl transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-3xl"
+              >
+                <div className="relative   overflow-hidden rounded-t-2xl bg-opacity-90">
+                  <Image
+                    src={tshirt.src}
+                    alt={tshirt.catigory}
+                    width={300}
+                    height={160}
+                    className="object-contain  w-full transition-transform duration-500 ease-in-out group-hover:scale-110"
+                  />
 
-                <div className="absolute top-1 left-1.5 text-[9px] md:top-2 md:left-2 bg-primary text-xs text-white md:px-3 md:py-1 rounded-full shadow-sm">
-                  New Arrival
+                  <div className="absolute top-1 left-1.5 text-[9px] md:top-2 md:left-2 bg-primary text-xs text-white md:px-3 md:py-1 rounded-full shadow-sm">
+                    New Arrival
+                  </div>
+                  <button
+                    className={`absolute top-1 right-1.5 md:top-4 md:right-4 text-2xl hover:scale-125 transition-transform duration-300`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddWish(tshirt);
+                    }}
+                  >
+                    <i
+                      className={`${
+                        wished ? "fa-solid fa-heart" : "fa-regular fa-heart"
+                      }`}
+                    ></i>
+                  </button>
                 </div>
-                <button
-                  className={`absolute top-1 right-1.5 md:top-4 md:right-4 text-2xl hover:scale-125 transition-transform duration-300`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleAddWish(tshirt);
-                  }}
-                >
-                  <i
-                    className={`${
-                      wished ? "fa-solid fa-heart" : "fa-regular fa-heart"
-                    }`}
-                  ></i>
-                </button>
-              </div>
 
-              <div className="md:p-6 p-2 text-center text-light rounded-b-2xl">
-                <h2 className="text-xl font-semibold text-light transition-all duration-300 group-hover:text-white">
-                  {tshirt.name}
-                </h2>
-                <p className="mt-2 text-4xl font-bold text-primary flex items-center justify-center gap-1">
-                  <span className="text-sm">$</span>
-                  {tshirt.price}
-                </p>
+                <div className="md:p-6 p-2 text-center text-light rounded-b-2xl">
+                  <h2 className="text-xl font-semibold text-light transition-all duration-300 group-hover:text-white">
+                    {tshirt.name}
+                  </h2>
+                  <p className="mt-2 text-4xl font-bold text-primary flex items-center justify-center gap-1">
+                    <span className="text-sm">$</span>
+                    {tshirt.price}
+                  </p>
 
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleAddToCart(tshirt);
-                  }}
-                  className={`md:mt-6 w-full py-3 ${
-                    isAdded ? "bg-green-400 hover:bg-green-500" : ""
-                  } text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl hover:bg-brimary transition-all duration-300 ease-in-out flex items-center justify-center gap-2`}
-                >
-                  <i
-                    className={`${
-                      isAdded
-                        ? "fa-solid fa-circle-check"
-                        : "fa-solid fa-cart-plus"
-                    }`}
-                  ></i>
-                  {`${isAdded ? "Done" : "Add to Cart"}`}
-                </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAddToCart(tshirt);
+                    }}
+                    className={`md:mt-6 w-full py-3 ${
+                      isAdded ? "bg-green-400 hover:bg-green-500" : ""
+                    } text-white font-semibold rounded-lg shadow-lg hover:shadow-2xl hover:bg-brimary transition-all duration-300 ease-in-out flex items-center justify-center gap-2`}
+                  >
+                    <i
+                      className={`${
+                        isAdded
+                          ? "fa-solid fa-circle-check"
+                          : "fa-solid fa-cart-plus"
+                      }`}
+                    ></i>
+                    {`${isAdded ? "Done" : "Add to Cart"}`}
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       <button
         onClick={() => {
@@ -142,9 +158,11 @@ const Products = () => {
         </h1>
       </div>
       <div className="w-full flex flex-wrap md:gap-12 md:justify-center justify-around">
-        {tshirts[1].slice(0, visibleCount1).map((tshirt) => {
-          const isAdded = cart.some((i: any) => i.id === tshirt.id && i.addedToCart); // حل الخطأ
-        const wished = wish.some((i: any) => i.id === tshirt.id && i.wished);
+        {!Loading && tshirts[1].slice(0, visibleCount1).map((tshirt) => {
+          const isAdded = cart.some(
+            (i: any) => i.id === tshirt.id && i.addedToCart
+          ); // حل الخطأ
+          const wished = wish.some((i: any) => i.id === tshirt.id && i.wished);
 
           return (
             <div
@@ -239,7 +257,7 @@ const Products = () => {
         </h1>
       </div>
       <div className="w-full flex flex-wrap md:gap-12 md:justify-center justify-around">
-        {tshirts[2].slice(0, visibleCount2).map((tshirt) => {
+        {!Loading && tshirts[2].slice(0, visibleCount2).map((tshirt) => {
           const isAdded = cart.some((i) => i.id === tshirt.id && i.addedToCart);
           const wished = wish.some((i) => i.id === tshirt.id && i.wished);
 

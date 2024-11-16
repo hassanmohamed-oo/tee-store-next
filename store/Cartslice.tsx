@@ -45,6 +45,9 @@ const cartSlice = createSlice({
       state.items = state.items.filter((item) => item.id !== action.payload);
       localStorage.setItem("cart", JSON.stringify(state.items)); // تحديث localStorage
     },
+    setInitialCart: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
+    },
 
     updateQuantity: (
       state,
@@ -65,5 +68,5 @@ const cartSlice = createSlice({
 });
 
 // تصدير الإجراءات والمخفض
-export const { addToCart, removeFromCart, updateQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity ,setInitialCart} = cartSlice.actions;
 export default cartSlice.reducer;
