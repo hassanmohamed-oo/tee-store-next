@@ -12,43 +12,42 @@ const Products = () => {
   const [visibleCount, setVisibleCount] = useState(4);
   const [visibleCount1, setVisibleCount1] = useState(4);
   const [visibleCount2, setVisibleCount2] = useState(4);
-  
-
-
 
   return (
     <>
       <div className="w-full flex flex-col items-center gap-3 py-20" id="shop">
-        <ShowProdacts
-          ProdactName="T_shirts"
-          visibleCount={visibleCount}
-          setVisibleCount={setVisibleCount}
-          setSelectedProduct={setSelectedProduct}
-          setIsOpen={setIsOpen}
-        />
-        <ShowProdacts
-          ProdactName="Hoodies"
-          visibleCount={visibleCount1}
-          setVisibleCount={setVisibleCount1}
-          setSelectedProduct={setSelectedProduct}
-          setIsOpen={setIsOpen}
-  
-        />
-        <ShowProdacts
-          ProdactName="Pants"
-          visibleCount={visibleCount2}
-          setVisibleCount={setVisibleCount2}
-          setSelectedProduct={setSelectedProduct}
-          setIsOpen={setIsOpen}
-  
-        />
-
+        <div className="t-shirts">
+          <ShowProdacts
+            ProdactName="T_shirts"
+            visibleCount={visibleCount}
+            setVisibleCount={setVisibleCount}
+            setSelectedProduct={setSelectedProduct}
+            setIsOpen={setIsOpen}
+          />
+        </div>
+        <div className="hoodies">
+          <ShowProdacts
+            ProdactName="Hoodies"
+            visibleCount={visibleCount1}
+            setVisibleCount={setVisibleCount1}
+            setSelectedProduct={setSelectedProduct}
+            setIsOpen={setIsOpen}
+          />
+        </div>
+        <div className="pants">
+          <ShowProdacts
+            ProdactName="Pants"
+            visibleCount={visibleCount2}
+            setVisibleCount={setVisibleCount2}
+            setSelectedProduct={setSelectedProduct}
+            setIsOpen={setIsOpen}
+          />
+        </div>
         <Productinfo
           selectedProduct={selectedProduct}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
-        
       </div>
     </>
   );
