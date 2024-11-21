@@ -8,14 +8,14 @@ import { addToCart } from "@/store/Cartslice";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { addToWish } from "@/store/Wishslice";
 import { CartItem } from "@/constants";
-
+import { Prodactinfo } from "@/components";
 const Wishlist = () => {
-  let [isOpen, setIsOpen] = useState(false);
-  let [selectedItem, setSelectedItem] = useState<CartItem | null>(null); // إضافة حالة لحفظ تفاصيل المنتج المحدد
+  // إضافة حالة لحفظ تفاصيل المنتج المحدد
   const dispatch = useDispatch<AppDispatch>();
   const wish = useSelector((state: RootState) => state.wish.items);
   const cart = useSelector((state: RootState) => state.cart.items);
-
+  let [isOpen, setIsOpen] = useState(false);
+  let [selectedItem, setSelectedItem] = useState<CartItem>(cart[0]);
   const hasItems = wish && wish.length > 0;
 
   const handleAddToCart = (item: CartItem) => {
@@ -101,111 +101,11 @@ const Wishlist = () => {
               </div>
             );
           })}
-          {/* الـ Dialog */}
-          <Dialog
-            open={isOpen}
-            as="div"
-            className="relative z-50"
-            onClose={() => setIsOpen(false)}
-          >
-            <div className="fixed inset-0 w-screen overflow-y-auto bg-gray-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center p-4">
-              <DialogPanel className="relative max-w-lg w-full rounded-xl p-6 shadow-2xl bg-opacity-40 bg-gray-900">
-                {selectedItem && (
-                  <>
-                    <div className="w-full flex gap-4 overflow-hidden">
-                      <Image
-                        src={selectedItem.src}
-                        width={1500}
-                        height={1500}
-                        alt={selectedItem.name}
-                        className="w-2/3 object-contain rounded-md"
-                      />
-                      <div className="w-1/3 flex flex-col gap-2 justify-between">
-                        <Image
-                          src={selectedItem.src}
-                          width={1500}
-                          height={100}
-                          alt={selectedItem.name}
-                          className="w-full object-contain rounded-md"
-                        />
-                        <Image
-                          src={selectedItem.src}
-                          width={1500}
-                          height={300}
-                          alt={selectedItem.name}
-                          className="w-full object-contain rounded-md"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-4">
-                      <h1 className="text-3xl text-white font-semibold">
-                        {selectedItem.name}
-                      </h1>
-                      <p className="mt-2 text-sm text-gray-400">
-                        {selectedItem.catigory}
-                      </p>
-                      <h1 className="mt-2 text-lg text-gray-300">
-                        Price:{" "}
-                        <span className="font-bold text-white">
-                          ${selectedItem.price}
-                        </span>
-                      </h1>
-
-                      <div className="size flex gap-3 items-center bg-transparent mt-4">
-                        <label className="block text-white font-medium">
-                          Size:
-                        </label>
-                        <select className="bg-gray-700 bg-opacity-60 p-2 rounded-md text-white font-medium focus:outline-none focus:ring-2 focus:ring-brimary">
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 flex gap-4 items-center">
-                      <button
-                        onClick={() => {
-                          handleAddToCart(selectedItem);
-                        }}
-                        className={`flex-1 py-2 rounded-md ${
-                          cart.some(
-                            (i) => i.id === selectedItem?.id && i.addedToCart
-                          )
-                            ? "bg-green-400"
-                            : "bg-brimary"
-                        } bg-opacity-50 hover:bg-opacity-100 text-white font-semibold transition-all shadow-lg`}
-                      >
-                        {`${
-                          cart.some(
-                            (i) => i.id === selectedItem?.id && i.addedToCart
-                          )
-                            ? "Added"
-                            : "Add To Cart"
-                        }`}
-                      </button>
-                      <button
-                        onClick={() => {
-                          handleDelWish(selectedItem);
-                        }}
-                      >
-                        <i
-                          className={` ${
-                            wish.some(
-                              (i) => i.id === selectedItem?.id && i.wished
-                            )
-                              ? "fa-solid"
-                              : "fa-regular"
-                          } fa-heart text-2xl text-white hover:text-primary transition-all`}
-                        ></i>
-                      </button>
-                    </div>
-                  </>
-                )}
-              </DialogPanel>
-            </div>
-          </Dialog>
+          <Prodactinfo
+            selectedProduct={selectedItem}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+          />
         </div>
       ) : (
         <div className="text-center bg-gray-900 bg-opacity-20 shadow-lg p-8 rounded-xl transform transition-all duration-500">

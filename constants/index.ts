@@ -1,6 +1,6 @@
 "use client"
-export const tshirts = [
-  [
+export const tshirts = {
+  T_shirts:[
     {
       id: 1,
       name: "Classic Tee",
@@ -80,7 +80,7 @@ export const tshirts = [
       discription: "Plain white tee, a wardrobe essential.",
     },
   ],
-  [
+  Hoodies:[
     {
       id: 16,
       name: "Winter Hoodie",
@@ -160,7 +160,7 @@ export const tshirts = [
       discription: "Hoodie with a cool graphic design.",
     },
   ],
-  [
+  Pants:[
     {
       id: 31,
       name: "Casual Pants",
@@ -240,7 +240,7 @@ export const tshirts = [
       discription: "Classic straight fit jeans.",
     },
   ],
-];
+};
 export interface CartItem {
   id: number;
   name: string;

@@ -28,7 +28,10 @@ overflow-x: hidden;
   width: 300vw; /* لتغطية عرض الشاشة بالكامل */
   overflow: hidden; /* لإخفاء أي نص زائد خارج الحاوية */ /* لون خلفية أسود */
   
-
+display: inline-block;
+ 
+  
+ 
   white-space: nowrap; /* منع النص من الالتفاف */
   position: relative;
   display: flex;
@@ -36,12 +39,12 @@ overflow-x: hidden;
 }
 
 /* النص المتحرك */
-.marquee-text {
-  display: inline-block;
-  font-size: 1.2rem;
+.marquee-text { 
+  animation: marqueeAnimation 45s linear infinite;
+  letter-spacing: 2px;
+   font-size: 14px;
   color: #061944; 
   font-weight: bold;
-  animation: marqueeAnimation 15s linear infinite;
 }
 
 /* حركة التمرير */
