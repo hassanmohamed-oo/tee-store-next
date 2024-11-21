@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { tshirts } from "@/constants";
 import { CartItem } from "@/constants";
-import { prodactinfo, ShowProdacts } from "@/components";
+import { productinfo, ShowProdacts } from "@/components";
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,11 +43,12 @@ const Products = () => {
   
         />
 
-        <prodactinfo
+        <productinfo
           selectedProduct={selectedProduct}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />
+        
       </div>
     </>
   );

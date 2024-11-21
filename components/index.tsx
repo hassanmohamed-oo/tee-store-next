@@ -5,7 +5,7 @@ import Prodacts from "./Prodacts";
 import About from "./About";
 import Wishlist from "./Wishlist";
 import Cart from "./Cart";
-import prodactinfo from "./prodactinfo";
+import productinfo from "./productinfo";
 import ShowProdacts from "./showProdacts";
 export {
   Footer,
@@ -15,6 +15,6 @@ export {
   About,
   Wishlist,
   Cart,
-  prodactinfo,
+  productinfo,
   ShowProdacts,
 };
