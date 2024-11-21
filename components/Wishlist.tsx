@@ -8,7 +8,7 @@ import { addToCart } from "@/store/Cartslice";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { addToWish } from "@/store/Wishslice";
 import { CartItem } from "@/constants";
-import productinfo from "./productinfo";
+import {Productinfo} from "@/components";
 const Wishlist = () => {
   // إضافة حالة لحفظ تفاصيل المنتج المحدد
   const dispatch = useDispatch<AppDispatch>();
@@ -101,7 +101,7 @@ const Wishlist = () => {
               </div>
             );
           })}
-          <productinfo
+          <Productinfo
             selectedProduct={selectedItem}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
