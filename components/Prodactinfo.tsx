@@ -12,7 +12,7 @@ interface ProdactinfoProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
-const Prodactinfo: React.FC<ProdactinfoProps> = ({
+const prodactinfo: React.FC<ProdactinfoProps> = ({
   selectedProduct,
   isOpen,
   setIsOpen,
@@ -132,4 +132,4 @@ const Prodactinfo: React.FC<ProdactinfoProps> = ({
   );
 };
 
-export default Prodactinfo;
+export default prodactinfo;
