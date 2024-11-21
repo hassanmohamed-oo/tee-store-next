@@ -1,8 +1,8 @@
 
 import { Metadata } from "next";
 import "./globals.css";
-import { Footer, NavBar } from "@/components";
 import RootProvider from "./RootProvider"; 
+import { Analytics } from "@vercel/analytics/react";
 
 
 export const metadata: Metadata = {
