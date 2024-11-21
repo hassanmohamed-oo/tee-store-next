@@ -7,4 +7,14 @@ import Wishlist from "./Wishlist";
 import Cart from "./Cart";
 import Prodactinfo from "./prodactInfo";
 import ShowProdacts from "./showProdacts";
-export { Footer, NavBar, Hero, Prodacts, About, Wishlist, Cart, Prodactinfo ,ShowProdacts};
+export {
+  Footer,
+  NavBar,
+  Hero,
+  Prodacts,
+  About,
+  Wishlist,
+  Cart,
+  Prodactinfo,
+  ShowProdacts,
+};
